@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SelectModal!</title>
+        <link rel="stylesheet" type="text/css" href="Content/css/bootstrap-theme.css">
+        <link rel="stylesheet" type="text/css" href="Content/css/bootstrap.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <div class="container text-center">
+                    <h1><span>Select Modal!</span></h1>
+                </div>
+            </div>
+            
+            <div class="row form-group">
+                <div class="col-md-4 col-md-offset-4">
+                    <label>Select sin optgroup:</label>
+                    <select class="form-control">
+                    <option value="uno esta solo">uno esta solo</option>
+                    <option value="dos diferentes maneras">dos diferentes maneras</option>
+                    <option value="tres veces llamo">tres veces llamo</option>
+                    <option value="cuatro elementos">cuatro elementos</option>
+                    <option value="cinco estrellas">cinco estrellas</option>
+                    <option value="seis es el diablo escondido">seis es el diablo escondido</option>
+                    <option value="siete rayos misteriosos">siete rayos misteriosos</option>
+                    <option value="ocho horizontes infinitos">ocho horizontes infinitos</option>
+                    <option value="nueve es real">nueve es real</option>
+                    <option value="diez y te escondes">diez y te escondes</option>
+                    <option value="once cumpleaños">once cumpleaños</option>
+                    <option value="doce las lunas en tu año">doce las lunas en tu año</option>
+                    <option value="trece no existe la suerte">trece no existe la suerte</option>
+                    <option value="los numeros no mienten">los numeros no mienten</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row form-group">
+                <div class="col-md-4 col-md-offset-4">
+                    <label>Select con optgroup:</label>
+                    <select class="form-control">
+                        <optgroup label="primero">
+                        <option value="uno esta solo">uno esta solo</option>
+                        <option value="dos diferentes maneras">dos diferentes maneras</option>
+                        <option value="tres veces llamo">tres veces llamo</option>
+                        <option value="cuatro elementos">cuatro elementos</option>
+                        <option value="cinco estrellas">cinco estrellas</option>
+                    </optgroup>
+                    <optgroup label="segundo">
+                        <option value="seis es el diablo escondido">seis es el diablo escondido</option>
+                        <option value="siete rayos misteriosos">siete rayos misteriosos</option>
+                        <option value="ocho horizontes infinitos">ocho horizontes infinitos</option>
+                        <option value="nueve es real">nueve es real</option>
+                        <option value="diez y te escondes">diez y te escondes</option>
+                        <option value="once cumpleaños">once cumpleaños</option>
+                    </optgroup>
+                    <optgroup label="tercero">
+                        <option value="doce las lunas en tu año">doce las lunas en tu año</option>
+                        <option value="trece no existe la suerte">trece no existe la suerte</option>
+                        <option value="los numeros no mienten">los numeros no mienten</option>
+                    </optgroup>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+    <script src="Content/js/jquery-1.11.1.js"></script>
+    <script src="Content/js/bootstrap.js"></script>
+    <script src="selectModal.js"></script>
+    
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            $('select').selectModal();
+        });
+    </script>
+</html>
