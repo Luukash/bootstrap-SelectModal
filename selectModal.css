@@ -1,0 +1,21 @@
+.bs-selectmodal-option {
+	display: block;
+}
+
+.bs-selectmodal-option:hover {
+	color: #DBA901;
+}
+
+.bs-selectmodal-option-selected {
+	color: green;
+}
+
+.bs-selectmodal-option-selected:hover {
+	color: #DBA901!;
+}
+
+.bs-selectmodal-optgroup {
+	display: block;
+	overflow: hidden;
+	border: 1px solid black;
+}

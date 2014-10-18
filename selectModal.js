@@ -7,6 +7,7 @@
         var settings = $.extend(true, {
             modalIdPrefix: "bs_selectmodal_",
             multi: false,
+            required: false,
             button: {
                 class: 'btn btn-primary btn-sm',
                 icon: 'glyphicon glyphicon-search',
@@ -20,15 +21,20 @@
                 dismissText : 'Ok',
             },
             option: {
+                class: 'bs-selectmodal-option',
+                class_selected: 'bs-selectmodal-option-selected',
                 checked: 'glyphicon glyphicon-check',
                 unchecked: 'glyphicon glyphicon-unchecked',
-            }
+            },
+            optgroup: {
+                class: 'bs-selectmodal-optgroup',
+            },
         }, options );
         
 
         //Templates
-        var _modalTemplate = '<div class="modal fade" id="{idModal}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-                                 '<div class="modal-dialog {modalsize}">'+
+        var _modalTemplate = '<div class="modal fade" id="{idModal}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+                                 '<div class="modal-dialog {modalsize}">' +
                                      '<div class="modal-content">' +
                                          '{header}' +
                                          '<div class="modal-body">{content}</div>' +
@@ -51,6 +57,9 @@
             
             if(settings.modal.size != ''){
                 myModal = myModal.replace('{modalsize}', 'modal-' + settings.modal.size);
+            }
+            else{
+                myModal = myModal.replace('{modalsize}', '');
             }
             
             if(settings.modal.header){
@@ -87,14 +96,15 @@
         }
         
         var _appendOption = function($element, option){
-            $option = $(document.createElement('span')).append($(document.createElement('i'))
-                                                       .addClass($(option).is(':selected')?settings.option.checked:settings.option.unchecked))
-                                                       .append($(option).text());
+            $option = $(document.createElement('span')).addClass($(option).is(':selected')?settings.option.class + ' ' + settings.option.class_selected : settings.option.class)
+                                                       .append($(document.createElement('i'))
+                                                       .addClass($(option).is(':selected')?settings.option.checked : settings.option.unchecked))
+                                                       .append(' ' + $(option).text());
             $element.append($option);
         }
         
         var _appendOptgroup = function($element, opt){
-            $optgroup = $(document.createElement('div')).addClass('optgroup');
+            $optgroup = $(document.createElement('div')).addClass(settings.optgroup.class);
             
             $(opt).find('option').each(function(){
                 _appendOption($optgroup, this);
@@ -121,6 +131,39 @@
             selectModal_incrementId++;
             return idModal;
         }
+
+        var _clickOptionEvent = function(event, $span){
+
+            //TODO: Seguir aca! Hacer una función para seleccionar/deseleccionar (clase e ícono D:!)
+            if(!$span.hasClass(settings.option.class_selected)){
+                $span.addClass(settings.option.class_selected);
+            }
+            else if(!settings.required){
+                $span.removeClass(settings.option.class_selected);
+            }
+
+            $span.closest('.modal-body').find('.' + settings.option.class_selected).not($span)
+                                        .removeClass(settings.option.class_selected);
+            
+        }
+
+        var _bindEvents = function(idModal){
+
+            var clickFn;
+            if(settings.multi){
+                //TODO:
+                //clickFn = _clickOptionEventMulti;
+                console.log('ouch!');
+            }
+            else{
+                clickFn = _clickOptionEvent;
+            }
+
+
+            $('#'+idModal).find('.'+settings.option.class).click(function(event) {
+                clickFn(event, $(this));
+            });
+        }
         
         //Main
         return this.each(function() {
@@ -130,6 +173,7 @@
             _generateButton(this, idModal);
             
             _createModal(this, idModal);
+            _bindEvents(idModal);
         });
     }
 }( jQuery ));
