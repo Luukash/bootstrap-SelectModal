@@ -2,6 +2,7 @@
     var selectModal_incrementId = 1;
     
     $.fn.selectModal = function( options ) {
+        
         // Defaults
         var settings = $.extend(true, {
             modalIdPrefix: "bs_selectmodal_",
@@ -24,13 +25,25 @@
             }
         }, options );
         
+
         //Templates
-        var _modalTemplate = '<div class="modal fade" id="{idModal}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog {modalsize}"><div class="modal-content">{header}<div class="modal-body">{content}</div>{footer}</div></div></div>';
+        var _modalTemplate = '<div class="modal fade" id="{idModal}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+                                 '<div class="modal-dialog {modalsize}">'+
+                                     '<div class="modal-content">' +
+                                         '{header}' +
+                                         '<div class="modal-body">{content}</div>' +
+                                         '{footer}' +
+                                     '</div>' +
+                                 '</div>' + 
+                             '</div>';
         
         var _modalHeaderTemplate = '<div class="modal-header"><h4 class="modal-title">{modaltitle}</h4></div>';
         
-        var _modalFooterTemplate = '<div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">{dismissText}</button></div>';
+        var _modalFooterTemplate =  '<div class="modal-footer">' + 
+                                         '<button type="button" class="btn btn-primary" data-dismiss="modal">{dismissText}</button>' +
+                                    '</div>';
         
+
         //Private functions
         var _createModal = function(select, idModal){
             
@@ -74,7 +87,9 @@
         }
         
         var _appendOption = function($element, option){
-            $option = $(document.createElement('span')).append($(document.createElement('i')).addClass($(option).is(':selected')?settings.option.checked:settings.option.unchecked)).append($(option).text());
+            $option = $(document.createElement('span')).append($(document.createElement('i'))
+                                                       .addClass($(option).is(':selected')?settings.option.checked:settings.option.unchecked))
+                                                       .append($(option).text());
             $element.append($option);
         }
         
