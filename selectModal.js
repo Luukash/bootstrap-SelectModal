@@ -97,6 +97,7 @@
         
         var _appendOption = function($element, option){
             $option = $(document.createElement('span')).addClass($(option).is(':selected')?settings.option.class + ' ' + settings.option.class_selected : settings.option.class)
+                                                       .attr('data-value', $(option).val())
                                                        .append($(document.createElement('i'))
                                                        .addClass($(option).is(':selected')?settings.option.checked : settings.option.unchecked))
                                                        .append(' ' + $(option).text());
@@ -132,19 +133,40 @@
             return idModal;
         }
 
-        var _clickOptionEvent = function(event, $span){
+        var _clickOptionEvent = function($span, idModal){
 
-            //TODO: Seguir aca! Hacer una función para seleccionar/deseleccionar (clase e ícono D:!)
+            //TODO:
+            //Deseleccionar en el select! <---
+
             if(!$span.hasClass(settings.option.class_selected)){
-                $span.addClass(settings.option.class_selected);
+                _seleccionarOpcion($span, idModal);
             }
             else if(!settings.required){
-                $span.removeClass(settings.option.class_selected);
+                _deseleccionarOpcion($span, idModal);
             }
 
             $span.closest('.modal-body').find('.' + settings.option.class_selected).not($span)
-                                        .removeClass(settings.option.class_selected);
+                                        .each(function() {
+                                            _deseleccionarOpcion($(this), idModal);
+                                        });;
             
+        }
+
+        var _seleccionarOpcion = function($span, idModal){
+            $span.addClass(settings.option.class_selected)
+                 .find('i')
+                 .removeClass(settings.option.unchecked)
+                 .addClass(settings.option.checked);
+
+            //TODO:
+            //Seleccionar en el select! <---
+        }
+
+        var _deseleccionarOpcion = function($span, idModal){
+            $span.removeClass(settings.option.class_selected)
+                 .find('i')
+                 .removeClass(settings.option.checked)
+                 .addClass(settings.option.unchecked);
         }
 
         var _bindEvents = function(idModal){
@@ -160,8 +182,8 @@
             }
 
 
-            $('#'+idModal).find('.'+settings.option.class).click(function(event) {
-                clickFn(event, $(this));
+            $('#'+idModal).find('.'+settings.option.class).click(function() {
+                clickFn($(this), idModal);
             });
         }
         
