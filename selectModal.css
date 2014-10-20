@@ -4,6 +4,7 @@
 
 .bs-selectmodal-option:hover {
 	color: #DBA901;
+    cursor:pointer;
 }
 
 .bs-selectmodal-option-selected {
@@ -11,7 +12,7 @@
 }
 
 .bs-selectmodal-option-selected:hover {
-	color: #DBA901!;
+	color: #AFCF0F !important;
 }
 
 .bs-selectmodal-optgroup {
