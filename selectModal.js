@@ -26,9 +26,7 @@
                 checked: 'glyphicon glyphicon-check',
                 unchecked: 'glyphicon glyphicon-unchecked',
             },
-            optgroup: {
-                class: 'bs-selectmodal-optgroup',
-            },
+            optgroups: true,
         }, options );
         
 
@@ -49,6 +47,19 @@
                                          '<button type="button" class="btn btn-primary" data-dismiss="modal">{dismissText}</button>' +
                                     '</div>';
         
+        var _optgroupTemplate = '<div class="panel panel-default">' +
+                                    '<div class="panel-heading">' +
+                                      '<h4 class="panel-title">' +
+                                        '<a data-toggle="collapse" data-parent="#accordion" href="#collapse{title}">' +
+                                            '{title}' +
+                                        '</a>' +
+                                      '</h4>' +
+                                    '</div>' +
+                                    '<div id="collapse{title}" class="panel-collapse collapse in">' +
+                                      '<div class="panel-body">' +
+                                      '</div>' +
+                                    '</div>' +
+                                '</div>';
 
         //Private functions
         var _createModal = function(select, idModal){
@@ -74,14 +85,20 @@
             
             myModal = myModal.replace('{content}', _generateModalContent(select));
             
-            $('body').append(myModal);
+            $myModal = $(myModal);
+            
+            if(settings.optgroups){
+                $myModal.find('.modal-body').addClass('panel-group');
+            }
+            
+            $('body').append($myModal);
         }
         
         var _generateModalContent = function(select){
             
             $content = $(document.createElement('div'));
             
-            if ($(select).find('optgroup').length > 0){
+            if (settings.optgroups && $(select).find('optgroup').length > 0){
                 $(select).find('optgroup').each(function(){
                     _appendOptgroup($content, this);
                 });
@@ -105,10 +122,10 @@
         }
         
         var _appendOptgroup = function($element, opt){
-            $optgroup = $(document.createElement('div')).addClass(settings.optgroup.class);
+            $optgroup = $(_optgroupTemplate.replace(/{title}/g, $(opt).attr('label')));
             
             $(opt).find('option').each(function(){
-                _appendOption($optgroup, this);
+                _appendOption($optgroup.find('.panel-body'), this);
             });
             
             $element.append($optgroup);
@@ -166,7 +183,6 @@
                  .removeClass(settings.option.unchecked)
                  .addClass(settings.option.checked);
 
-            console.log($(select).find('option[value="'+ $span.attr('data-svalue') +'"]'));
             $(select).find('option[value="'+ $span.attr('data-svalue') +'"]').attr('selected','selected');
         }
 

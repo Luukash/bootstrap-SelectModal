@@ -73,7 +73,14 @@
     
     <script type="text/javascript">
         jQuery(document).ready(function(){
+            var start = new Date().getTime();
+            
             $('select').selectModal();
+            
+            var end = new Date().getTime();
+            var time = end - start;
+            
+            console.log('Took ' + time + 'ms');
         });
     </script>
 </html>
